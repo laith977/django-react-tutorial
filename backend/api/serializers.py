@@ -13,8 +13,8 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class NoteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Note
-        fields = ["id","title","content","created_at","author"]
-        extra_kwargs = {'author':{"read_only":True}}
+    author = serializers.CharField(source='auth.username', read_only=True)  # Map `auth` to `author`
 
+    class Meta:
+        model = Note
+        fields = ["id", "title", "content", "created_at", "author"]
